@@ -12,6 +12,26 @@
   "activationEvents": [],
   "main": "./out/extension.js",
   "contributes": {
+    "languages": [
+      {
+        "id": "typ",
+        "extensions": [
+          ".typ"
+        ],
+        "aliases": [
+          "Typ",
+          "typ"
+        ],
+        "configuration": "./typ.language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "typ",
+        "scopeName": "source.typ",
+        "path": "./syntaxes/typ.tmLanguage.yaml"
+      }
+    ],
     "commands": [
       {
         "command": "typ-editor.helloWorld",
@@ -21,6 +41,7 @@
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
+    "peggy": "peggy -o src/typ.js peggy/typ.pegjs",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",

@@ -2,6 +2,25 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 
+import * as typ from './typ';
+
+const tokenTypes = ['struct', 'property'];
+const tokenModifiers = ['declaration', 'definition']
+const legend = new vscode.SemanticTokensLegend(tokenTypes, tokenModifiers);
+
+const documentSemanticTokensProvider: vscode.DocumentSemanticTokensProvider = {
+	provideDocumentSemanticTokens(document: vscode.TextDocument): vscode.ProviderResult<vscode.SemanticTokens> {
+		const tokensBuilder = new vscode.SemanticTokensBuilder(legend);
+
+		const documentText = document.getText();
+		const parserResult = typ.parse(documentText);
+
+		console.log(`${typeof parserResult}: ${JSON.stringify(parserResult)}`);
+
+		return tokensBuilder.build();
+	}
+};
+
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
@@ -18,6 +37,9 @@ export function activate(context: vscode.ExtensionContext) {
 		// Display a message box to the user
 		vscode.window.showInformationMessage('Hello World from TYP Editor!');
 	});
+
+	const selector = { language: 'typ', scheme: 'file' };
+	vscode.languages.registerDocumentSemanticTokensProvider(selector, documentSemanticTokensProvider, legend);
 
 	context.subscriptions.push(disposable);
 }
