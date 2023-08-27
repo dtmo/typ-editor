@@ -29,7 +29,7 @@
       {
         "language": "typ",
         "scopeName": "source.typ",
-        "path": "./syntaxes/typ.tmLanguage.yaml"
+        "path": "./syntaxes/typ.tmLanguage.json"
       }
     ],
     "commands": [
