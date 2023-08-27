@@ -9,27 +9,6 @@
   "scopeName": "source.typ",
   "patterns": [
     {
-      "begin": "(^[ \\t]+)?(?=#)",
-      "beginCaptures": {
-        "1": {
-          "name": "punctuation.whitespace.comment.leading.typ"
-        }
-      },
-      "end": "(?!\\G)",
-      "patterns": [
-        {
-          "begin": "#",
-          "beginCaptures": {
-            "0": {
-              "name": "punctuation.definition.comment.typ"
-            }
-          },
-          "end": "\\n",
-          "name": "comment.line.number-sign.typ"
-        }
-      ]
-    },
-    {
       "begin": "(^[ \\t]+)?(?=;)",
       "beginCaptures": {
         "1": {

@@ -5,18 +5,19 @@ import * as vscode from 'vscode';
 import * as typ from './typ';
 
 const tokenTypes = ['struct', 'property'];
-const tokenModifiers = ['declaration', 'definition']
+const tokenModifiers = ['declaration', 'definition'];
 const legend = new vscode.SemanticTokensLegend(tokenTypes, tokenModifiers);
 
 const documentSemanticTokensProvider: vscode.DocumentSemanticTokensProvider = {
 	provideDocumentSemanticTokens(document: vscode.TextDocument): vscode.ProviderResult<vscode.SemanticTokens> {
 		const tokensBuilder = new vscode.SemanticTokensBuilder(legend);
-
-		const documentText = document.getText();
-		const parserResult = typ.parse(documentText);
-
-		console.log(`${typeof parserResult}: ${JSON.stringify(parserResult)}`);
-
+		
+		for (var lineNumber = 0; lineNumber < document.lineCount; lineNumber++) {
+			const line = document.lineAt(lineNumber);
+			const parserResult = typ.parse(`${line.text}\n`, { startRule: "Line" });
+			console.log(`${JSON.stringify(parserResult)}`);
+		}
+		
 		return tokensBuilder.build();
 	}
 };

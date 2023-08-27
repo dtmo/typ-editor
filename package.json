@@ -41,7 +41,7 @@
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
-    "peggy": "peggy -o src/typ.js peggy/typ.pegjs",
+    "peggy": "peggy --allowed-start-rules '*' -o src/typ.js peggy/typ.pegjs",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
@@ -59,9 +59,9 @@
     "eslint": "^8.41.0",
     "glob": "^8.1.0",
     "mocha": "^10.2.0",
+    "peggy": "^3.0.2",
     "typescript": "^5.1.3"
   },
   "dependencies": {
-    "peggy": "^3.0.2"
   }
 }
